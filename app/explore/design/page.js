@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Ticker from "@/components/Ticker";
-import ParticleHero from "@/components/ParticleHero";
+import ParticleHero from "@/components/DynamicParticleHero";
 
 export default function Design() {
   const courses = [

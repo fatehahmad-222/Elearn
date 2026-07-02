@@ -2,13 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
-  ArrowRight, Play, BookOpen, Users, Star,
+  ArrowRight, BookOpen, Users, Star,
   Code, Palette, BarChart3, Briefcase,
   GraduationCap, Sparkles, ChevronDown
 } from "lucide-react";
-import Ticker from "@/components/Ticker";
-import Cube from "@/components/Cube";
+
+const Ticker = dynamic(() => import("@/components/Ticker"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const Cube = dynamic(() => import("@/components/Cube"), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0 z-0" />,
+});
 
 function useInView(threshold = 0.08) {
   const ref = useRef(null);

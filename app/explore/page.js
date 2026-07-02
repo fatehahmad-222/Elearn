@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Ticker from "@/components/Ticker";
 import { Search } from "lucide-react";

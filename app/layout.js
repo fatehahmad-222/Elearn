@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import CursorTrail from "@/components/CursorTrail";
+import DynamicCursorTrail from "@/components/DynamicCursorTrail";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +18,12 @@ export const metadata = {
     "A stunning, modern e-learning platform built with Next.js, Three.js, and Tailwind CSS. Interactive 3D visuals, premium design, and seamless user experience.",
 };
 
+export const viewport = {
+  themeColor: "#07070d",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -25,7 +31,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col cursor-none">
-        <CursorTrail />
+        <DynamicCursorTrail />
         {children}
       </body>
     </html>
