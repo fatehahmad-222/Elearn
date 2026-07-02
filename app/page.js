@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
   BookOpen, Users, Star, ChevronDown
 } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import FadeUp from "@/components/FadeUp";
 import Cube from "@/components/Cube";
 
 const Ticker = dynamic(() => import("@/components/Ticker"), {
@@ -18,40 +19,6 @@ const BelowFold = dynamic(() => import("@/components/BelowFold"), {
   loading: () => null,
 });
 
-function useInView(threshold = 0.08) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return [ref, inView];
-}
-
-function FadeUp({ children, delay = 0, className = "" }) {
-  const [ref, inView] = useInView(0.05);
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-}
-
 function FloatingBadge({ icon: Icon, value, label, className }) {
   return (
     <div className={`flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.04] backdrop-blur-2xl border border-white/[0.06] shadow-2xl select-none ${className}`}>
@@ -63,49 +30,6 @@ function FloatingBadge({ icon: Icon, value, label, className }) {
         <p className="text-xs text-white/40">{label}</p>
       </div>
     </div>
-  );
-}
-
-function Navbar() {
-  return (
-    <header className="relative z-50 flex justify-between items-center px-6 md:px-10 py-5 max-w-7xl mx-auto">
-      <Link href="/">
-        <h1 className="text-2xl font-bold tracking-tight">
-          <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-400 bg-clip-text text-transparent">
-            E.
-          </span>
-        </h1>
-      </Link>
-
-      <nav className="hidden md:flex items-center gap-8 text-sm">
-        {[
-          { href: "/explore", label: "Explore" },
-          { href: "/courses", label: "Courses" },
-          { href: "/pricing", label: "Pricing" },
-        ].map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="text-white/50 hover:text-white/90 transition-colors duration-300"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
-
-      <div className="flex items-center gap-3">
-        <Link href="/login">
-          <button className="text-sm text-white/60 hover:text-white transition-colors duration-300">
-            Log in
-          </button>
-        </Link>
-        <Link href="/signup">
-          <button className="px-5 py-2.5 bg-gradient-to-r from-amber-400 to-yellow-500 text-black rounded-full text-sm font-semibold hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-amber-500/20">
-            Sign Up Free
-          </button>
-        </Link>
-      </div>
-    </header>
   );
 }
 

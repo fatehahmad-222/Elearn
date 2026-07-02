@@ -1,4 +1,14 @@
-import Link from "next/link";
+"use client";
+
+import dynamic from "next/dynamic";
+import Navbar from "@/components/Navbar";
+import FadeUp from "@/components/FadeUp";
+import Footer from "@/components/Footer";
+
+const Ticker = dynamic(() => import("@/components/Ticker"), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function Courses() {
   const courses = [
@@ -41,63 +51,46 @@ export default function Courses() {
   ];
 
   return (
-    <div className="min-h-screen bg-amber-50 text-gray-900 font-sans">
-      <header className="flex justify-between items-center px-8 py-5">
-        <Link href="/">
-          <h1 className="text-xl font-semibold tracking-tight cursor-pointer">E.</h1>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-          <Link href="/explore">Explore</Link>
-          <Link href="/courses" className="text-black font-medium">Courses</Link>
-          <Link href="/pricing">Pricing</Link>
-        </nav>
-        <div className="flex items-center gap-3">
-          <Link href="/login">
-            <button className="text-sm text-gray-700 hover:text-black">Log in</button>
-          </Link>
-          <Link href="/signup">
-            <button className="px-4 py-2 bg-black text-white rounded-full text-sm hover:opacity-90">
-              Sign Up
-            </button>
-          </Link>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#07070d] text-white font-sans overflow-x-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.012)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.012)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <Ticker />
+      <Navbar />
 
-      <section className="text-center mt-16 px-6">
-        <h1 className="text-4xl md:text-5xl font-bold">Our Courses</h1>
-        <p className="mt-3 text-gray-600 max-w-lg mx-auto">
-          Explore our curated collection of courses designed to take you from beginner to pro.
-        </p>
+      <section className="text-center mt-24 px-6">
+        <FadeUp>
+          <h1 className="text-4xl md:text-5xl font-bold">
+            <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-400 bg-clip-text text-transparent">
+              Our Courses
+            </span>
+          </h1>
+        </FadeUp>
+        <FadeUp delay={100}>
+          <p className="mt-3 text-white/40 max-w-lg mx-auto">
+            Explore our curated collection of courses designed to take you from beginner to pro.
+          </p>
+        </FadeUp>
       </section>
 
       <section className="max-w-6xl mx-auto px-6 mt-16 grid md:grid-cols-3 gap-8 mb-24">
         {courses.map((course, i) => (
-          <div
-            key={i}
-            className="p-6 bg-white rounded-2xl border shadow-sm hover:shadow-md transition flex flex-col"
-          >
-            <div className="h-36 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl mb-5" />
-
-            <span className="text-xs text-gray-500 uppercase tracking-wide mb-2">
-              {course.level}
-            </span>
-
-            <h3 className="font-semibold text-lg mb-2">{course.title}</h3>
-            <p className="text-gray-600 text-sm mb-4 flex-1">{course.desc}</p>
-
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-400">{course.lessons} lessons</span>
-              <button className="px-5 py-2 bg-black text-white rounded-full text-sm hover:opacity-90">
-                Enroll Now
-              </button>
+          <FadeUp key={course.title} delay={i * 80}>
+            <div className="group p-6 bg-white/[0.03] border border-white/[0.06] rounded-2xl hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-500 hover:-translate-y-1 flex flex-col">
+              <div className="h-36 rounded-xl mb-5 bg-gradient-to-br from-amber-500/10 to-amber-600/5" />
+              <span className="text-xs text-amber-400 uppercase tracking-wide mb-2">{course.level}</span>
+              <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-400 transition-colors">{course.title}</h3>
+              <p className="text-white/40 text-sm mb-4 flex-1">{course.desc}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-white/40">{course.lessons} lessons</span>
+                <button className="px-5 py-2 bg-gradient-to-r from-amber-400 to-yellow-500 text-black rounded-full text-sm font-semibold hover:scale-105 active:scale-95 transition-all duration-300">
+                  Enroll Now
+                </button>
+              </div>
             </div>
-          </div>
+          </FadeUp>
         ))}
       </section>
 
-      <footer className="py-8 text-center text-gray-500 text-sm border-t">
-        © {new Date().getFullYear()} E-Learn Platform
-      </footer>
+      <Footer />
     </div>
   );
 }
