@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Ticker from "@/components/Ticker";
-import ParticleHero from "@/components/DynamicParticleHero";
+import ParticleHero from "@/components/ParticleHero";
 
 export default function Programming() {
   const courses = [
