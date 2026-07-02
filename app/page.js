@@ -60,7 +60,7 @@ function Hero() {
           </FadeUp>
 
           <FadeUp delay={150}>
-            <h1 className="text-[clamp(1.6rem,4vw,3.5rem)] font-bold leading-[0.9] tracking-tight">
+            <h1 className="text-[clamp(2.0rem,6vw,5.5rem)] font-bold leading-[0.9] tracking-tight">
               <span className="bg-gradient-to-r from-white via-amber-100 to-amber-200 bg-clip-text text-transparent">
                 THE MODERN
               </span>
