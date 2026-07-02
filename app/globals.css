@@ -219,12 +219,6 @@
   border-radius: 4px;
 }
 
-.cube-face-inner {
-  width: 100%;
-  height: 100%;
-  animation: faceExplode 6s ease-in-out infinite;
-}
-
 .cube-face-grid {
   width: 100%;
   height: 100%;
@@ -263,36 +257,6 @@
 @keyframes starTwinkle {
   0%, 100% { opacity: 0.2; transform: scale(1); }
   50% { opacity: 0.8; transform: scale(1.5); }
-}
-
-.burst-particle {
-  position: absolute;
-  width: var(--size, 3px);
-  height: var(--size, 3px);
-  border-radius: 50%;
-  background: rgba(251, 191, 36, 0.8);
-  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);
-  animation: burst 6s ease-out infinite;
-  animation-delay: var(--delay, 0s);
-  left: 50%;
-  top: 50%;
-}
-
-@keyframes burst {
-  0%, 55% {
-    transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateX(0);
-    opacity: 0;
-  }
-  60% { opacity: 1; }
-  68% {
-    transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateX(var(--distance, 120px));
-    opacity: 1;
-  }
-  78% { opacity: 0.4; }
-  100% {
-    transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateX(0);
-    opacity: 0;
-  }
 }
 
 @media (min-width: 768px) {
