@@ -1,14 +1,4 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import Navbar from "@/components/Navbar";
-import FadeUp from "@/components/FadeUp";
-import Footer from "@/components/Footer";
-
-const Ticker = dynamic(() => import("@/components/Ticker"), {
-  ssr: false,
-  loading: () => null,
-});
+import Link from "next/link";
 
 export default function Pricing() {
   const plans = [
@@ -39,70 +29,80 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#07070d] text-white font-sans overflow-x-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.012)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.012)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
-      <Ticker />
-      <Navbar />
+    <div className="min-h-screen bg-amber-50 text-gray-900 font-sans">
+      <header className="flex justify-between items-center px-8 py-5">
+        <Link href="/">
+          <h1 className="text-xl font-semibold tracking-tight cursor-pointer">E.</h1>
+        </Link>
+        <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
+          <Link href="/explore">Explore</Link>
+          <Link href="/courses">Courses</Link>
+          <Link href="/pricing" className="text-black font-medium">Pricing</Link>
+        </nav>
+        <div className="flex items-center gap-3">
+          <Link href="/login">
+            <button className="text-sm text-gray-700 hover:text-black">Log in</button>
+          </Link>
+          <Link href="/signup">
+            <button className="px-4 py-2 bg-black text-white rounded-full text-sm hover:opacity-90">
+              Sign Up
+            </button>
+          </Link>
+        </div>
+      </header>
 
-      <section className="text-center mt-24 px-6">
-        <FadeUp>
-          <h1 className="text-4xl md:text-5xl font-bold">
-            <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-400 bg-clip-text text-transparent">
-              Simple Pricing
-            </span>
-          </h1>
-        </FadeUp>
-        <FadeUp delay={100}>
-          <p className="mt-3 text-white/40 max-w-lg mx-auto">
-            Choose the plan that fits your learning goals. Upgrade anytime.
-          </p>
-        </FadeUp>
+      <section className="text-center mt-16 px-6">
+        <h1 className="text-4xl md:text-5xl font-bold">Simple Pricing</h1>
+        <p className="mt-3 text-gray-600 max-w-lg mx-auto">
+          Choose the plan that fits your learning goals. Upgrade anytime.
+        </p>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 mt-16 grid md:grid-cols-3 gap-8 mb-24">
         {plans.map((plan, i) => (
-          <FadeUp key={plan.name} delay={i * 100}>
-            <div
-              className={`relative bg-white/[0.03] border ${
-                plan.popular ? "border-amber-400/30 shadow-lg shadow-amber-500/5" : "border-white/[0.06]"
-              } rounded-3xl p-8 hover:bg-white/[0.06] transition-all duration-500`}
-            >
-              {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs rounded-full font-medium">
-                  Most Popular
-                </span>
-              )}
+          <div
+            key={i}
+            className={`relative bg-white rounded-3xl p-8 border ${
+              plan.popular ? "border-black shadow-lg" : "shadow-sm"
+            }`}
+          >
+            {plan.popular && (
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-black text-white text-xs rounded-full font-medium">
+                Most Popular
+              </span>
+            )}
 
-              <h2 className="text-xl font-semibold">{plan.name}</h2>
-              <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-4xl font-bold">{plan.price}</span>
-                <span className="text-white/40 text-sm">{plan.period}</span>
-              </div>
-
-              <ul className="mt-8 flex flex-col gap-4">
-                {plan.features.map((f, j) => (
-                  <li key={j} className="text-sm text-white/50 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                className={`mt-10 w-full py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  plan.popular
-                    ? "bg-gradient-to-r from-amber-400 to-yellow-500 text-black hover:scale-105 active:scale-95"
-                    : "border border-white/[0.12] text-white/60 hover:border-white/30 hover:text-white"
-                }`}
-              >
-                {plan.cta}
-              </button>
+            <h2 className="text-xl font-semibold">{plan.name}</h2>
+            <div className="mt-4 flex items-baseline gap-1">
+              <span className="text-4xl font-bold">{plan.price}</span>
+              <span className="text-gray-500 text-sm">{plan.period}</span>
             </div>
-          </FadeUp>
+
+            <ul className="mt-8 flex flex-col gap-4">
+              {plan.features.map((f, j) => (
+                <li key={j} className="text-sm text-gray-700 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-black rounded-full" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <button
+              className={`mt-10 w-full py-3 rounded-full text-sm font-medium ${
+                plan.popular
+                  ? "bg-black text-white hover:opacity-90"
+                  : "border border-gray-300 hover:border-gray-400"
+              }`}
+            >
+              {plan.cta}
+            </button>
+          </div>
         ))}
       </section>
 
-      <Footer />
+      <footer className="py-8 text-center text-gray-500 text-sm border-t">
+        © {new Date().getFullYear()} E-Learn Platform
+      </footer>
     </div>
   );
 }
