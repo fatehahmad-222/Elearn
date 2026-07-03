@@ -6,7 +6,10 @@ import dynamic from "next/dynamic";
 import {
   BookOpen, Users, Star, ChevronDown
 } from "lucide-react";
-import Cube from "@/components/Cube";
+const BurstCube = dynamic(() => import("@/components/BurstCube"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const Ticker = dynamic(() => import("@/components/Ticker"), {
   ssr: false,
@@ -119,7 +122,7 @@ function Hero() {
         <div className="absolute top-[45%] right-[25%] w-[350px] h-[350px] bg-amber-400/4 rounded-full blur-[80px]" />
       </div>
 
-      <Cube />
+      <BurstCube />
 
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-10">
         <div className="max-w-2xl">
